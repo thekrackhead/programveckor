@@ -1,10 +1,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="stylesheet.css">
   <meta name="viewport" initial-scale=1.0>
-  <title>Document</title>
+  <title>homepage</title>
 </head>
 <body>
-  
+  <header>
+
+  </header>
+  <div class="dropdown">
+    <button class="dropbtn" onclick="coolFunction()">Dropdown 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content" id="coolDropdown">
+      <a href="#">Link 1</a>
+      <a href="#">Link 2</a>
+      <a href="#">Link 3</a>
+    </div>
+  </div>
+
+  <script>
+
+    function coolFunction() {
+      document.getElementById("coolDropdown").classList.toggle("show");
+    }
+
+    window.onclick = function(e) {
+      if (!e.target.matches('.dropbtn')) {
+        var coolDropdown = document.getElementById("coolDropdown");
+        if (coolDropdown.classList.contains('show')) {
+          coolDropdown.classList.remove('show');
+        }
+      }
+    }
+
+  </script>
 </body>
 </html>
