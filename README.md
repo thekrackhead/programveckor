@@ -26,3 +26,5 @@ Här presenterar ni saker som ni har laddat ner och använt för att bygga ert a
 ### Install
 
 Här skriver ni vad vi i juryn behöver göra för att kunna köra ert program / app / webbsida
+
+https://thekrackhead.github.io/programveckor/index.html
