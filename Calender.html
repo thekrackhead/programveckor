@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <title>Calender</title>
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+    <style>
+        #calendar {
+            max-width: 900px;
+            margin: 40px auto;
+        }
+    </style>
+</head>
+<body>
+    <section id="sec1">
+        <h1>Calender</h1>
+    </section>
+    <div id='calendar'></div>
+
+    <section id="sec2">
+        
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const calendarEl = document.getElementById('calendar');
+        
+          const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            editable: true,
+            selectable: true,
+            events: [
+              
+            ],
+            // Lägg till event
+            select: function(info) {
+              const title = prompt('Eventnamn:');
+              if (title) {
+                calendar.addEvent({
+                  title: title,
+                  start: info.startStr,
+                  end: info.endStr,
+                  allDay: info.allDay
+                });
+              }
+              calendar.unselect();
+            },
+            // Ta bort event när man klickar på det
+            eventClick: function(info) {
+              if (confirm(`Remove "${info.event.title}"?`)) {
+                info.event.remove();
+              }
+            }
+          });
+        
+          calendar.render();
+        });
+        </script>
+        
+    
+</body>
+</html>
+

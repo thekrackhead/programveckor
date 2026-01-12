@@ -1,0 +1,30 @@
+*{ 
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body {
+    background-color: rgba(123, 170, 182, 1);
+}
+
+#sec1 {
+    position: relative;
+    width: 100vw;
+    height: 15vh;
+    background-color: rgba(133, 188, 203, 1);
+}
+
+#sec1 h1 {
+    position: relative;
+    top: 30%;
+    left: 4%;
+    font-size: calc(2vw + 1vh);
+}
+
+#sec2 {
+    position: relative;
+    width: 50%;
+    height: 50%;
+    background-color: rgb(255, 0, 0);
+}
