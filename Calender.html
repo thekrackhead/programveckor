@@ -21,47 +21,97 @@
     </section>
     <div id='calendar'></div>
 
-    <section id="sec2">
-        
-    </section>
-
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          const calendarEl = document.getElementById('calendar');
-        
-          const calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            editable: true,
-            selectable: true,
-            events: [
-              
-            ],
-            // Lägg till event
-            select: function(info) {
-              const title = prompt('Eventnamn:');
-              if (title) {
-                calendar.addEvent({
-                  title: title,
-                  start: info.startStr,
-                  end: info.endStr,
-                  allDay: info.allDay
-                });
-              }
-              calendar.unselect();
-            },
-            // Ta bort event när man klickar på det
-            eventClick: function(info) {
-              if (confirm(`Remove "${info.event.title}"?`)) {
-                info.event.remove();
-              }
+      document.addEventListener('DOMContentLoaded', function() {
+      
+        const calendarEl = document.getElementById('calendar');
+      
+        // Hämtar sparade events
+        const storedEvents = JSON.parse(localStorage.getItem('calendarEvents')) || [];
+      
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth',
+          selectable: true,
+          editable: true,
+      
+          // Laddar events från localStorage
+          events: storedEvents.map(e => ({
+            title: `${e.subject} – ${e.testType}`,
+            start: e.date,
+            allDay: true
+          })),
+      
+          // Lägger till event
+          select: function(info) {
+            const subject = prompt('Subject:');
+            if (!subject) return calendar.unselect();
+      
+            const testType = prompt('Task type exam, submission etc:');
+            if (!testType) return calendar.unselect();
+      
+            const eventData = {
+              subject: subject,
+              testType: testType,
+              date: info.startStr
+            };
+      
+            // Sparar i localStorage
+            storedEvents.push(eventData);
+            localStorage.setItem('calendarEvents', JSON.stringify(storedEvents));
+      
+            calendar.addEvent({
+              title: `${subject} – ${testType}`,
+              start: info.startStr,
+              allDay: info.allDay
+            });
+      
+            calendar.unselect();
+          },
+      
+          //  Ta bort event
+          eventClick: function(info) {
+            if (confirm(`Remove "${info.event.title}"?`)) {
+      
+              info.event.remove();
+      
+              // Ta bort från localStorage
+              const updatedEvents = storedEvents.filter(e => {
+                const title = `${e.subject} – ${e.testType}`;
+                return !(title === info.event.title && e.date === info.event.startStr);
+              });
+      
+              // Uppdatera localStorage
+              localStorage.setItem('calendarEvents', JSON.stringify(updatedEvents));
+      
+              storedEvents.length = 0;
+              storedEvents.push(...updatedEvents);
             }
-          });
-        
-          calendar.render();
+          },
+      
+          eventDrop: function(info) {
+            const updatedEvents = storedEvents.map(e => {
+              const title = `${e.subject} – ${e.testType}`;
+              if (title === info.event.title && e.date === info.oldEvent.startStr) {
+                // Uppdatera datum till nya datumet
+                return { ...e, date: info.event.startStr };
+              }
+              return e;
+            });
+      
+            // Spara tillbaka i localStorage
+            localStorage.setItem('calendarEvents', JSON.stringify(updatedEvents));
+      
+            storedEvents.length = 0;
+            storedEvents.push(...updatedEvents);
+          }
+      
         });
-        </script>
-        
+      
+        calendar.render();
+      });
+      </script>
+      
+      
     
 </body>
 </html>
-
