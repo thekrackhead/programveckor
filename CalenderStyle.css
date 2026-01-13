@@ -6,6 +6,7 @@
 
 body {
     background-color: rgba(123, 170, 182, 1);
+    overflow-x: hidden;
 }
 
 #sec1 {
@@ -18,13 +19,5 @@ body {
 #sec1 h1 {
     position: relative;
     top: 30%;
-    left: 4%;
-    font-size: calc(2vw + 1vh);
-}
-
-#sec2 {
-    position: relative;
-    width: 50%;
-    height: 50%;
-    background-color: rgb(255, 0, 0);
+    left: 3%;
 }
