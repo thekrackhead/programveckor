@@ -3,32 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="calender.css">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <title>Calender</title>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
     <style>
-        #calendar {
-            max-width: 900px;
-            margin: 40px auto;
-        }
+      @import url('https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap');
     </style>
 </head>
 <body>
   <section id="sec1">
-      <div class="dropdown">
-        <button class="dropbtn" onclick="coolFunction()">Menu
-          <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content" id="coolDropdown">
-          <a href="index.html">homepage</a>
-          <a href="grades.html">grades</a>
-          <a href="#">calender</a>
+  <h1>Welcome!</h1>
+  </section>
+  <div id='calendar'>
+    <div class="fc-toolbar-title">September 2026</div>
+  </div>
+  <div class="back"></div>
+    <img src="hamburger.png" class="hamburger" width="40" height="40" onclick="toggleMenu()">
+    <img src="x.png" class="x" id="x" width="20" height="20" onclick="closeDropdown()">
+    <div id="dropdown" class="dropdown">
+      <h3>Menu</h3>
+      <a href="index.html">Home</a>
+      <a href="grades.html">Grades</a>
+      <a href="calender.html">Calender</a>
+  
+      <div class="studytips">
+        <span id="nestedLabel" onclick="toggleNested()" class="label">StudyTips▸</span>
+        <div id="study-dropdown" class="study-dropdown">
+          <p>pain</p>
+          <p>in</p>
+          <p>my</p>
+          <p>dih</p>
         </div>
       </div>
-        <h1>Calender</h1>
-    </section>
-    <div id='calendar'></div>
+  
+    </div>
+  </div>
+    
+    <script>
+  
+  const dropdown = document.getElementById("dropdown");
+      const xBtn = document.getElementById("x");
+      const nested = document.getElementById("study-dropdown");
+      const nestedLabel = document.getElementById("nestedLabel");
+  
+      dropdown.style.display = "none";
+      xBtn.style.display = "none";
+      nested.style.display = "none";
+  
+      function toggleMenu() {
+        const isVisible = dropdown.style.display === "block";
+        dropdown.style.display = isVisible ? "none" : "block";
+        xBtn.style.display = isVisible ? "none" : "block";
+  
+        if (isVisible) nested.style.display = "none";
+        if (isVisible) nestedLabel.innerHTML = "StudyTips▸";
+      }
+  
+      function toggleNested() {
+        const isVisible = nested.style.display === "block";
+        nested.style.display = isVisible ? "none" : "block";
+        nestedLabel.innerHTML = isVisible ? "StudyTips▸" : "StudyTips▾";
+      }
+  
+      function closeDropdown() {
+        dropdown.style.display = "none";
+        xBtn.style.display = "none";
+        nested.style.display = "none";
+        nestedLabel.innerHTML = "StudyTips▸";
+      }
+  
+    </script>
 
     <script>
       document.addEventListener('DOMContentLoaded', function() {
@@ -118,20 +163,9 @@
       
         calendar.render();
       });
-
-      function coolFunction() {
-      document.getElementById("coolDropdown").classList.toggle("show");
-    }
-
-    window.onclick = function(e) {
-      if (!e.target.matches('.dropbtn')) {
-        var coolDropdown = document.getElementById("coolDropdown");
-        if (coolDropdown.classList.contains('show')) {
-          coolDropdown.classList.remove('show');
-        }
-      }
-    }
       </script>
+
+
       
       
     

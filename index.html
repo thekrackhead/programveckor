@@ -5,38 +5,81 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="stylesheet.css">
   <title>homepage</title>
-
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+  </style>
 </head>
 <body>
   <section id="sec1">
-  <div class="dropdown">
-    <button class="dropbtn" onclick="coolFunction()">Menu
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content" id="coolDropdown">
-      <a href="#">homepage</a>
-      <a href="grades.html">grades</a>
-      <a href="Calender.html">calender</a>
-    </div>
-  </div>
   <h1>Welcome!</h1>
   </section>
 
+  
+  <a href="/login">
+    <img src="loginbtn.png" class="loginbtn" width="45">
+  </a>
+  <a href="/signin">
+    <img src="signinbtn.png" class="signinbtn" width="40">
+  </a>
+  
+  <div class="back">
+    <img src="hamburger.png" class="hamburger" width="40" height="40" onclick="toggleMenu()">
+    <img src="x.png" class="x" id="x" width="20" height="20" onclick="closeDropdown()">
+    <div id="dropdown" class="dropdown">
+      <h3>Menu</h3>
+      <a href="index.html">Home</a>
+      <a href="grades.html">Grades</a>
+      <a href="calender.html">Calender</a>
+  
+      <div class="studytips">
+        <span id="nestedLabel" onclick="toggleNested()" class="label">StudyTips▸</span>
+        <div id="study-dropdown" class="study-dropdown">
+          <p>pain</p>
+          <p>in</p>
+          <p>my</p>
+          <p>dih</p>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+
+
+
   <script>
 
-  function coolFunction() {
-      document.getElementById("coolDropdown").classList.toggle("show");
+const dropdown = document.getElementById("dropdown");
+    const xBtn = document.getElementById("x");
+    const nested = document.getElementById("study-dropdown");
+    const nestedLabel = document.getElementById("nestedLabel");
+
+    dropdown.style.display = "none";
+    xBtn.style.display = "none";
+    nested.style.display = "none";
+
+    function toggleMenu() {
+      const isVisible = dropdown.style.display === "block";
+      dropdown.style.display = isVisible ? "none" : "block";
+      xBtn.style.display = isVisible ? "none" : "block";
+
+      if (isVisible) nested.style.display = "none";
+      if (isVisible) nestedLabel.innerHTML = "StudyTips▸";
     }
 
-    window.onclick = function(e) {
-      if (!e.target.matches('.dropbtn')) {
-        var coolDropdown = document.getElementById("coolDropdown");
-        if (coolDropdown.classList.contains('show')) {
-          coolDropdown.classList.remove('show');
-        }
-      }
+    function toggleNested() {
+      const isVisible = nested.style.display === "block";
+      nested.style.display = isVisible ? "none" : "block";
+      nestedLabel.innerHTML = isVisible ? "StudyTips▸" : "StudyTips▾";
+    }
+
+    function closeDropdown() {
+      dropdown.style.display = "none";
+      xBtn.style.display = "none";
+      nested.style.display = "none";
+      nestedLabel.innerHTML = "StudyTips▸";
     }
 
   </script>
+
 </body>
 </html>
