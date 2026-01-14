@@ -243,8 +243,8 @@ body {
   border-top-right-radius: 10px;
   left: 0px;
   bottom: 0px;
-  position: fixed;
   padding: 30px;
+  position: fixed;
   background-color: white;
   z-index: 2;
 }
