@@ -6,13 +6,6 @@
     box-sizing:border-box;
 }
 
-#greeting{
-  position: fixed;
-  align-self: center;
-  right: 47.5vw;
-  top: 5vh;
-  font-size: x-large;
-}
 
 body{
   border-style: inset;
