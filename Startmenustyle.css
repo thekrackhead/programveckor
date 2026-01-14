@@ -243,7 +243,7 @@ body {
   border-top-right-radius: 10px;
   left: 0px;
   bottom: 0px;
-  position: absolute;
+  position: fixed;
   padding: 30px;
   background-color: white;
   z-index: 2;
