@@ -1,0 +1,239 @@
+*{ 
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+#background {
+    position: absolute;
+    background-color: rgb(185, 247, 248);
+    width: 50vw;
+    height: 75vh;
+    left: 25%;
+    bottom:-75%;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
+}
+
+#DeadlineBackground {
+    position: absolute;
+    background-color: rgb(185, 247, 248);
+    width: 50vw;
+    height: 58vh;
+    left: 25%;
+    bottom: 15%;
+    
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 5px;
+}
+
+body {
+    background-color: rgba(123, 170, 182, 1);
+    overflow-x: hidden;
+}
+
+#sec1 {
+    position: relative;
+    width: 100vw;
+    height: 15vh;
+    background-color: rgba(133, 188, 203, 1);
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#sec1 h1 {
+    position: relative;
+    color: white;
+    top: 30%;
+    left: 4%;
+    font-size: calc(2vw + 1vh);
+}
+
+.event-template {
+    width: 50vw;
+    height: 10vh;
+    background-color: white;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 1);
+    border-radius: 5px;
+
+    display: grid;
+    grid-template-columns: 1fr 2fr 3fr 2fr; 
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 3px;
+}
+
+.event-template .Subject {
+    font-size: 20px;
+    grid-column: 1;
+    grid-row: 2;
+    text-align: center;
+}
+
+.event-template .TaskType {
+    font-size: 18px;
+    grid-column: 2;
+    grid-row: 2;
+    text-align: center;
+    background-color: rgb(255, 230, 0);
+    border-radius: 10px;
+    width: 70%;
+    text-align: center;
+
+}
+
+.event-template .Date {
+    font-size: 20px;
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.event-template .Edit {
+    font-size: 20px;
+    grid-column: 4;
+    grid-row: 2;
+}
+
+#Passed_Due {
+    position: absolute;
+    font-size: 30px;
+    width: 20%;
+    left: 25%;
+    top: 20%;
+    
+}
+
+#Upcoming {
+    position: absolute;
+    font-size: 30px;
+    width: 20%;
+    left: 25%;
+    top: 90%;
+}
+
+
+
+
+.button-18 {
+  align-items: center;
+  background-color: #0A66C2;
+  border: 0;
+  border-radius: 100px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 20px;
+  max-width: 480px;
+  min-height: 40px;
+  min-width: 0px;
+  overflow: hidden;
+  padding: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  touch-action: manipulation;
+  transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+
+  position: absolute;
+  left: 68%;
+  top: 90%;
+}
+
+.button-18:hover,
+.button-18:focus { 
+  background-color: #16437E;
+  color: #ffffff;
+}
+
+.button-18:active {
+  background: #09223b;
+  color: rgb(255, 255, 255, .7);
+}
+
+.button-18:disabled { 
+  cursor: not-allowed;
+  background: rgba(0, 0, 0, .08);
+  color: rgba(0, 0, 0, .3);
+}
+
+#backgroundlayer0 {
+    position: absolute;
+    width: 70vw;
+    height: 160vh;
+    left: 15%;
+    top: 17%;
+    background-color: rgba(211, 254, 255, 1);
+    border-radius: 5px;
+}
+
+
+
+/* CSS */
+.button-22 {
+  align-items: center;
+  appearance: button;
+  background-color: #0276FF;
+  border-radius: 8px;
+  border-style: none;
+  box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  font-family: "RM Neue",sans-serif;
+  font-size: 100%;
+  line-height: 0.02;
+  margin: 0;
+  padding: 10px 21px;
+  text-align: center;
+  text-transform: none;
+  transition: color .13s ease-in-out,background .13s ease-in-out,opacity .13s ease-in-out,box-shadow .13s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 37%;
+
+  grid-column: 4;
+  grid-row: 2;
+
+}
+
+.button-22:active {
+  background-color: #006AE8;
+}
+
+.button-22:hover {
+  background-color: #1C84FF;
+}
+
+
+.button-log {
+    grid-column: 4; /* Placerar knappen höger om Date */
+    grid-row: 2;
+    background-color: #FF6B6B;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    width: 60%;
+    font-size: 15px;
+  }
+  
+  .button-log:hover {
+    background-color: #FF4C4C;
+}
