@@ -11,7 +11,6 @@
     height: 75vh;
     left: 25%;
     bottom:-75%;
-
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -35,6 +34,9 @@
 body {
     background-color: rgba(123, 170, 182, 1);
     overflow-x: hidden;
+    font-family: "Istok Web", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 #sec1 {
@@ -48,17 +50,21 @@ body {
 
 #sec1 h1 {
     position: relative;
-    color: white;
+    color: black;
     top: 30%;
     left: 4%;
     font-size: calc(2vw + 1vh);
+}
+
+button {
+  font-weight: bold;
 }
 
 .event-template {
     width: 50vw;
     height: 10vh;
     background-color: white;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 1);
+    box-shadow: 2px 2px 6px rgb(128, 128, 128);
     border-radius: 5px;
 
     display: grid;
@@ -74,6 +80,7 @@ body {
     text-align: center;
 }
 
+
 .event-template .TaskType {
     font-size: 18px;
     grid-column: 2;
@@ -84,6 +91,13 @@ body {
     width: 70%;
     text-align: center;
 
+}
+
+.event-template h1 {
+  margin-top: 5px;
+  padding-top: 2px;
+  padding-left: 5px;
+  padding-right: 7px;
 }
 
 .event-template .Date {
@@ -238,19 +252,360 @@ body {
     background-color: #FF4C4C;
 }
 
+/*popup1*/
+
+.hidden {
+  display: none;
+}
+
+#logPopup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  display: none;
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+}
+
+#logPopup.show {
+  display: flex; /* only show when .show class is added */
+}
+
+#logPopup .popup-box {
+  width: 240px;
+  height: 370px;
+  background: linear-gradient(to bottom, #6479ff 17%, white 17%);
+  padding-top: #0A66C2, 10px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.popup-box h3 {
+  color: black;
+}
+
+.x1 {
+  display: block; 
+  position: absolute;
+  top: 114px;
+  right: 546px;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  z-index: 20;
+}
+
+.s {
+  font-weight: bold;
+  font-size: 13px;
+  position: absolute;
+  top: 175px;
+  z-index: 100;
+}
+
+.m {
+  font-weight: bold;
+  font-size: 13px;
+  position: absolute;
+  top: 175px;
+  right: 590px;
+}
+
+.s1 {
+  font-weight: bold;
+  font-size: 13px;
+  position: absolute;
+  top: 240px;
+}
+
+.y {
+  font-weight: bold;
+  font-size: 13px;
+  position: absolute;
+  top: 315px;
+}
+
+.subbackground {
+  position: absolute;
+  top: 195px;
+  padding: 2px 8px 2px 8px;
+  border-radius: 7px;
+  background-color: #e0e0e0;
+  display: inline-block;
+}
+
+
+.pill1 {
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+  width: 40px;
+  height: 23.5px;
+}
+
+.pill2 {
+  width: 40px;
+  height: 23.5px;
+}
+
+.pill3 {
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+  width: 40px;
+  height: 23.5px;
+}
+
+
+.pill-row {
+  top: 195px;
+  right: 533.5px;
+  position: absolute;
+  display: flex;
+  gap: 2px;
+}
+
+
+.pill-row input,
+.pill {
+  border: none;
+  background: #e0e0e0;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.pill-row1 {
+  top: 335px;
+  position: absolute;
+  display: flex;
+  gap: 2px;
+}
+
+.pill-row1 input,
+.pill {
+  width: 65.5px;
+  height: 45px;
+  border: none;
+  background: #e0e0e0;
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+
+.pill-labelA {
+  position: absolute;
+  top: 220px;
+  right: 632px;
+  font-weight: bold;
+  font-size: 15px;
+  text-align: center;
+}
+
+.pill-labelC {
+  position: absolute;
+  top: 220px;
+  right: 591px;
+  font-weight: bold;
+  font-size: 15px;
+  text-align: center;
+}
+
+.pill-labelE {
+  position: absolute;
+  top: 220px;
+  right: 552px;
+  font-weight: bold;
+  font-size: 15px;
+  text-align: center;
+}
+
+.pill-labelA1 {
+  position: absolute;
+  top: 381px;
+  right: 700px;
+  font-weight: bold;
+  font-size: 25px;
+  text-align: center;
+}
+
+.pill-labelC1 {
+  position: absolute;
+  top: 381px;
+  right: 635px;
+  font-weight: bold;
+  font-size: 25px;
+  text-align: center;
+}
+
+.pill-labelE1 {
+  position: absolute;
+  top: 381px;
+  right: 571px;
+  font-weight: bold;
+  font-size: 25px;
+  text-align: center;
+}
+
+.score-type {
+  position: absolute;
+  top: 260px;
+  display: flex;
+  border-radius: 7px;
+  overflow: hidden;
+  background: #ddd;
+  width: fit-content;
+}
+
+.seg-btn {
+  border: none;
+  padding: 10px 22px;
+  font-size: 23px;
+  font-weight: Bold;
+  cursor: pointer;
+  background: #ddd;
+  color: #333;
+}
+
+.seg-btn.active {
+  background: #6479ff;
+  color: white;
+}
+
+.saveGrade {
+  position: absolute;
+  right: 540px;
+  top: 420px;
+  font-style: bold;
+  background-color: rgb(132, 255, 132);
+  border: none;
+  border-radius: 7px;
+  width: 40px;
+  height: 23.5px;
+  cursor: pointer;
+}
+
+.postponeGrade {
+  position: absolute;
+  right: 600px;
+  top: 420px;
+  font-style: bold;
+  background-color: rgb(255, 140, 132);
+  border: none;
+  border-radius: 7px;
+  width: 70px;
+  height: 23.5px;
+  cursor: pointer;
+}
+
+
+
+
+/*other side*/
+
+.pill-row2 input,
+.pill {
+  border-radius: 7px;
+  border: none;
+  top: 195px;
+  right: 617.5px;
+  position: absolute;
+  display: flex;
+  gap: 2px;
+  background: #e0e0e0;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.pill4 {
+  width: 40px;
+  height: 23.5px;
+}
+
+.pill-row3 input,
+.pill {
+  border-radius: 7px;
+  border: none;
+  top: 335px;
+  right: 674.5px;
+  position: absolute;
+  display: flex;
+  gap: 2px;
+  background: #e0e0e0;
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.pill5 {
+  width: 65.5px;
+  height: 45px;
+}
+
+
+/*end of pill*/
+
+.back1 {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  position: absolute;
+  right: 175px;
+  top: 20px;
+  padding: 25px;
+  background-color: rgb(95, 142, 197);
+  cursor: pointer;
+}
+
+.back2 {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px; 
+  position: absolute;
+  right: 125px;
+  top: 20px;
+  padding: 25px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.back2:hover {
+  background-color:rgb(220, 220, 220); 
+}
+
+.lines {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  width: 35px;
+  height: 90%;
+}
+
+.calendaricon {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+}
+
+.accounticon {
+  position: absolute;
+  width: 60px;
+  top: 12px;
+  right: 20px;
+}
+
 
 .back {
   border-top-right-radius: 10px;
   left: 0px;
   bottom: 0px;
-  position: absolute;
+  position: fixed;
   padding: 30px;
   background-color: white;
   z-index: 2;
 }
 
 .hamburger {
-  position: absolute;
+  position: fixed;
   bottom: 5px;
   left: 5px;
   width: 50px;
@@ -264,7 +619,7 @@ body {
 
 .dropdown {
   display: none;
-  position: absolute;
+  position: fixed;
   width: 220px;
   height: 300px;
   bottom: 0px;
@@ -282,7 +637,7 @@ body {
 
 .x {
   display: block; 
-  position: absolute;
+  position: fixed;
   bottom: 273px;
   left: 190px;
   width: 15px;
@@ -334,4 +689,96 @@ body {
 .study-dropdown p {
   padding: 0px 8px 4px;
   margin: 0px;
+}
+
+
+/*grades specifically*/
+
+.grades-page {
+  width: 75%;
+  margin: 40px auto;
+}
+
+.title {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.grades-card {
+  background: rgba(211, 254, 255, 1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.grades-header, .grades-footer, .grade-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr 1.2fr 0.3fr;
+  align-items: center;
+  padding: 14px 20px;
+}
+
+.grades-header {
+  background: #ffffff;
+  font-weight: bold;
+  color: #000000;
+}
+
+.grade-row {
+  border-top: 2px solid #909090;
+}
+
+.subject {
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.badge {
+  display: inline-block;
+  min-width: 56px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: 800;
+  text-align: center;
+  color: #111;
+}
+
+.badge.A { background: #5dff5d; }
+.badge.B { background: #90ff1a; }
+.badge.C { background: #f3ee00; }
+.badge.D { background: #ffb000; }
+.badge.E { background: #ff7a00; }
+.badge.F { background: #ff4141; }
+
+.progress {
+  height: 18px;
+  width: 120px;
+  background: #d8d8d8;
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress > span {
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  bottom: 3px;
+  border-radius: 999px;
+  width: 50%;
+  background: #5b63ff;
+}
+
+
+.grades-footer {
+  background: #ffffff;
+  font-weight: bold;
+}
+
+.merit-pill {
+  display: inline-block;
+  padding: 2px 10px;
+  border: 1.5px solid #000000;
+  border-radius: 8px;
+  font-weight: bold;
+  background: white;
 }

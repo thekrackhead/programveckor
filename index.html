@@ -10,6 +10,19 @@
   <section id="sec1">
     <h1>Events</h1>
   </section>
+
+  <a class="back1"href="index.html">
+    <img src="lines.png" class="lines" width="45">
+  </a>
+
+  <a class="back2" href="Calender.html">
+    <img src="calendaricon.png" class="calendaricon" width="40">
+  </a>
+
+  <a href="account.html">
+    <img src="account.png" class="accounticon" width="40">
+  </a>
+   
   <div class="back">
     <img src="hamburger.png" class="hamburger" width="40" height="40" onclick="toggleMenu()" alt="burger">
     <img src="x.png" class="x" id="x" width="20" height="20" onclick="closeDropdown()" alt="close">
@@ -32,6 +45,8 @@
     </div>
   </div>
 
+  
+
   <section id="backgroundlayer0"></section>
   <section id="background"></section>
   <section id="DeadlineBackground"></section>
@@ -43,104 +58,311 @@
 
   <h1 id="Passed_Due">Passed Due</h1>
   <h1 id="Upcoming">Upcoming</h1>
-  
+
+  <div id="logPopup" class="hidden">
+    <div class="popup-box">
+      <h3>Log Test</h1>
+      <img src="x.png" class="x1" id="x1" width="20" height="20" onclick="closeLog()">
+      <div class="subbackground">
+        <h4 id="popupSubject" class="popupSubject">Subject</h4>
+      </div>
+
+      <p class="s">Subject</p>
+      <p class="m">Max Score</p>
+      <p class="s1">Score Type</p>
+      <p class="y">Your Score</p>
+
+      <button id="saveGrade" class="saveGrade">Save</button>
+
+      <button id="postponeGrade" class="postponeGrade">Postpone</button>
+
+      <div id="ecaMode">
+        <div class="score-section">
+          <div class="pill-row">
+            <input class="pill1" type="number" value="0">
+            <input class="pill2" type="number" value="0">
+            <input class="pill3" type="number" value="0">
+          </div>
+          <p class="pill-labelA">A</p>
+          <p class="pill-labelC">C</p>
+          <p class="pill-labelE">E</p>
+
+          <div class="pill-row1">
+            <input class="pill1" type="number" value="0">
+            <input class="pill2" type="number" value="0">
+            <input class="pill3" type="number" value="0">
+          </div>
+          <p class="pill-labelA1">A</p>
+          <p class="pill-labelC1">C</p>
+          <p class="pill-labelE1">E</p>
+        </div>
+      </div>
+
+      <div id="pointsMode" class="hidden">
+        <div class="pill-row2">
+          <input class="pill4" type="number" value="0">
+        </div>
+        <div class="pill-row3">
+          <input class="pill5" type="number" value="0">
+        </div>
+      </div>
+
+        <div class="score-type">
+          <button type="button" class="seg-btn active" data-mode="eca">E C A</button>
+          <button type="button" class="seg-btn" data-mode="123">1 2 3</button>
+        </div>
+
+
+      
+
+    </div>
+  </div>
+
 
   <script>
     const storedEvents = JSON.parse(localStorage.getItem('calendarEvents')) || [];
-  
-    const upcomingContainer = document.getElementById('background');
-    const passedContainer = document.getElementById('DeadlineBackground');
-  
-    const maxUpcoming = 7;
-    const maxPassed = 6;
-  
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-  
-    // Sortera events efter datum (tidigast först)
-    storedEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
-  
-    let upcomingIndex = 0;
-    let passedIndex = 0;
-  
-    storedEvents.forEach(event => {
-      const eventDate = new Date(event.date);
-      eventDate.setHours(0, 0, 0, 0);
-  
-      const eventDiv = document.createElement('section');
-      eventDiv.classList.add('event-template');
-  
-      // Lägg till Subject, TaskType och Date till event-template
-      eventDiv.innerHTML = `
-        <h1 class="Subject">${event.subject}</h1>
-        <h1 class="TaskType">${event.testType}</h1>
-        <h1 class="Date">${event.date}</h1>
-      `;
-  
-      // Sätt färg på TaskType baserat på typen
-      const taskTypeElement = eventDiv.querySelector('.TaskType');
-      const type = event.testType.toLowerCase();
-  
-      if (type === 'exam' || type === 'test') {
-        taskTypeElement.style.backgroundColor = 'rgba(219, 110, 255, 1)';
-      } else if (type === 'submission') {
-        taskTypeElement.style.backgroundColor = 'rgb(255, 230, 0)';
-      } else if (type === 'homework') {
-        taskTypeElement.style.backgroundColor = 'rgba(127, 219, 124, 1)';
-      } else {
-        taskTypeElement.style.backgroundColor = 'lightgray';
-      }
-  
-      // Avgör om eventet är Passed Due eller Upcoming
-      if (eventDate < today && passedIndex < maxPassed) {
-        passedIndex++;
-        eventDiv.style.gridRow = passedIndex;
-  
-        // Log knapp
-        const logButton = document.createElement('button');
-        logButton.classList.add('button-log');
-        logButton.textContent = 'Log';
-        eventDiv.appendChild(logButton);
-  
-        passedContainer.appendChild(eventDiv);
-      } else if (eventDate >= today && upcomingIndex < maxUpcoming) {
-        upcomingIndex++;
-        eventDiv.style.gridRow = upcomingIndex;
-        upcomingContainer.appendChild(eventDiv);
-      }
+
+const upcomingContainer = document.getElementById('background');
+const passedContainer = document.getElementById('DeadlineBackground');
+
+const maxUpcoming = 7;
+const maxPassed = 6;
+
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+storedEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+let upcomingIndex = 0;
+let passedIndex = 0;
+
+const logPopup = document.getElementById("logPopup");
+logPopup.classList.add('hidden');
+
+const popupSubject = document.getElementById("popupSubject");
+
+// ✅ NEW: track which calendar event is being logged
+let currentEventId = null;
+
+// ✅ NEW: ensure all stored events have an id (migration for old data)
+let changed = false;
+storedEvents.forEach(e => {
+  if (!e.id) {
+    e.id = (crypto?.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random()));
+    changed = true;
+  }
+});
+if (changed) {
+  localStorage.setItem('calendarEvents', JSON.stringify(storedEvents));
+}
+
+// --- MODE ---
+let scoreMode = 'eca';
+
+function setScoreMode(mode) {
+  scoreMode = mode;
+
+  const eca = document.getElementById('ecaMode');
+  const points = document.getElementById('pointsMode');
+
+  if (mode === 'eca') {
+    eca.classList.remove('hidden');
+    points.classList.add('hidden');
+  } else {
+    eca.classList.add('hidden');
+    points.classList.remove('hidden');
+  }
+
+  // button active state
+  document.querySelectorAll('#logPopup .seg-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.mode === mode);
+  });
+}
+
+// --- OPEN/CLOSE POPUP ---
+function openLog() {
+  logPopup.classList.remove('hidden');
+  logPopup.classList.add('show');
+  document.body.style.overflow = 'hidden';
+  setScoreMode('eca'); // reset each time you open
+}
+
+function closeLog() {
+  logPopup.classList.add('hidden');
+  logPopup.classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+// --- Seg buttons (ONE listener system) ---
+document.querySelectorAll('#logPopup .seg-btn').forEach(btn => {
+  btn.addEventListener('click', () => setScoreMode(btn.dataset.mode));
+});
+
+// --- RENDER EVENTS ---
+storedEvents.forEach(event => {
+  const eventDate = new Date(event.date);
+  eventDate.setHours(0, 0, 0, 0);
+
+  const eventDiv = document.createElement('section');
+  eventDiv.classList.add('event-template');
+
+  eventDiv.innerHTML = `
+    <h1 class="Subject">${event.subject}</h1>
+    <h1 class="TaskType">${event.testType}</h1>
+    <h1 class="Date">${event.date}</h1>
+  `;
+
+  const taskTypeElement = eventDiv.querySelector('.TaskType');
+  const type = event.testType.toLowerCase();
+
+  if (type === 'exam' || type === 'test') {
+    taskTypeElement.style.backgroundColor = 'rgba(219, 110, 255, 1)';
+  } else if (type === 'submission') {
+    taskTypeElement.style.backgroundColor = 'rgb(255, 230, 0)';
+  } else if (type === 'homework') {
+    taskTypeElement.style.backgroundColor = 'rgba(127, 219, 124, 1)';
+  } else {
+    taskTypeElement.style.backgroundColor = 'lightgray';
+  }
+
+  if (eventDate < today && passedIndex < maxPassed) {
+    passedIndex++;
+    eventDiv.style.gridRow = passedIndex;
+
+    const logButton = document.createElement('button');
+    logButton.classList.add('button-log');
+    logButton.textContent = 'Log Test';
+
+    logButton.addEventListener('click', () => {
+      // ✅ NEW: store the event id that we are logging
+      currentEventId = event.id;
+
+      popupSubject.textContent = event.subject;
+      openLog();
     });
-    const dropdown = document.getElementById("dropdown");
-    const xBtn = document.getElementById("x");
-    const nested = document.getElementById("study-dropdown");
-    const nestedLabel = document.getElementById("nestedLabel");
 
-    dropdown.style.display = "none";
-    xBtn.style.display = "none";
-    nested.style.display = "none";
+    eventDiv.appendChild(logButton);
+    passedContainer.appendChild(eventDiv);
+  } else if (eventDate >= today && upcomingIndex < maxUpcoming) {
+    upcomingIndex++;
+    eventDiv.style.gridRow = upcomingIndex;
+    upcomingContainer.appendChild(eventDiv);
+  }
+});
 
-    function toggleMenu() {
-      const isVisible = dropdown.style.display === "block";
-      dropdown.style.display = isVisible ? "none" : "block";
-      xBtn.style.display = isVisible ? "none" : "block";
+function calculatePercentage(E_max, C_max, A_max, e, c, a) {
+  const p_max = 50 * E_max + 75 * C_max + 100 * A_max;
+  const p = 50 * e + 75 * c + 100 * a;
+  if (p_max === 0) return 0;
+  return (p / p_max) * 100;
+}
 
-      if (isVisible) nested.style.display = "none";
-      if (isVisible) nestedLabel.innerHTML = "StudyTips▸";
+function percentToGrade(p) {
+  if (p >= 90) return "A";
+  if (p >= 80) return "B";
+  if (p >= 70) return "C";
+  if (p >= 60) return "D";
+  if (p >= 50) return "E";
+  return "F";
+}
+
+function gradeToMerit(grade) {
+  const map = { A: 20, B: 17.5, C: 15, D: 12.5, E: 10, F: 0 };
+  return map[grade] ?? 0;
+}
+
+function normalizeSubject(subject) {
+  const s = subject.trim().toLowerCase();
+
+  if (["math", "matte", "maths", "mathematics"].includes(s)) return "MA";
+  if (["english", "eng", "en", "engelska"].includes(s)) return "EN";
+  if (["svenska", "sv", "swedish"].includes(s)) return "SV";
+  if (["history", "historia", "hi"].includes(s)) return "HI";
+
+  return subject.toUpperCase();
+}
+
+const saveBtn = document.getElementById('saveGrade');
+if (saveBtn) {
+  saveBtn.addEventListener('click', () => {
+
+    let percent = 0;
+
+    if (scoreMode === 'eca') {
+      const maxInputs = document.querySelectorAll('#ecaMode .pill-row input');
+      const A_max = Number(maxInputs[0]?.value || 0);
+      const C_max = Number(maxInputs[1]?.value || 0);
+      const E_max = Number(maxInputs[2]?.value || 0);
+
+      const yourInputs = document.querySelectorAll('#ecaMode .pill-row1 input');
+      const a = Number(yourInputs[0]?.value || 0);
+      const c = Number(yourInputs[1]?.value || 0);
+      const e = Number(yourInputs[2]?.value || 0);
+
+      percent = calculatePercentage(E_max, C_max, A_max, e, c, a);
+
+    } else {
+      const max = Number(document.querySelector('#pointsMode .pill4')?.value || 0);
+      const your = Number(document.querySelector('#pointsMode .pill5')?.value || 0);
+      percent = (max === 0) ? 0 : (your / max) * 100;
     }
 
-    function toggleNested() {
-      const isVisible = nested.style.display === "block";
-      nested.style.display = isVisible ? "none" : "block";
-      nestedLabel.innerHTML = isVisible ? "StudyTips▸" : "StudyTips▾";
-    }
+    const gradeLetter = percentToGrade(percent);
+    const merit = gradeToMerit(gradeLetter);
 
-    function closeDropdown() {
-      dropdown.style.display = "none";
-      xBtn.style.display = "none";
-      nested.style.display = "none";
-      nestedLabel.innerHTML = "StudyTips▸";
-    }
+    const gradeObj = {
+      eventId: currentEventId,
+
+      subject: normalizeSubject(popupSubject.textContent),
+      mode: scoreMode,
+      percent: Number(percent.toFixed(2)),
+      grade: gradeLetter,
+      merit: merit,
+      date: new Date().toISOString()
+    };
+
+    const grades = JSON.parse(localStorage.getItem('grades')) || [];
+    grades.push(gradeObj);
+    localStorage.setItem('grades', JSON.stringify(grades));
+
+    window.location.href = 'grades.html';
+  });
+}
+
+const dropdown = document.getElementById("dropdown");
+const xBtn = document.getElementById("x");
+const nested = document.getElementById("study-dropdown");
+const nestedLabel = document.getElementById("nestedLabel");
+
+dropdown.style.display = "none";
+xBtn.style.display = "none";
+nested.style.display = "none";
+
+function toggleMenu() {
+  const isVisible = dropdown.style.display === "block";
+  dropdown.style.display = isVisible ? "none" : "block";
+  xBtn.style.display = isVisible ? "none" : "block";
+
+  if (isVisible) nested.style.display = "none";
+  if (isVisible) nestedLabel.innerHTML = "StudyTips▸";
+}
+
+function toggleNested() {
+  const isVisible = nested.style.display === "block";
+  nested.style.display = isVisible ? "none" : "block";
+  nestedLabel.innerHTML = isVisible ? "StudyTips▸" : "StudyTips▾";
+}
+
+function closeDropdown() {
+  dropdown.style.display = "none";
+  xBtn.style.display = "none";
+  nested.style.display = "none";
+  nestedLabel.innerHTML = "StudyTips▸";
+}
+
   </script>
   
 
+  
 </body>
 </html>

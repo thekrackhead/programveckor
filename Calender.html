@@ -15,17 +15,37 @@
   <section id="sec1">
   <h1>Welcome!</h1>
   </section>
-  <div id='calendar'>
-    <div class="fc-toolbar-title">September 2026</div>
+
+
+  <a class="back1"href="index.html">
+    <img src="lines.png" class="lines" width="45">
+  </a>
+
+  <a class="back2" href="Calender.html">
+    <img src="calendaricon.png" class="calendaricon" width="40">
+  </a>
+
+
+  <a href="account.html">
+    <img src="account.png" class="accounticon" width="40">
+  </a>
+
+
+  <div class="calendar-wrapper">
+    <div id='calendar'></div>
   </div>
+  
+
+  
+  
   <div class="back"></div>
-    <img src="hamburger.png" class="hamburger" width="40" height="40" onclick="toggleMenu()" alt="burger">
-    <img src="x.png" class="x" id="x" width="20" height="20" onclick="closeDropdown()" alt="close">
+    <img src="hamburger.png" class="hamburger" width="40" height="40" onclick="toggleMenu()">
+    <img src="x.png" class="x" id="x" width="20" height="20" onclick="closeDropdown()">
     <div id="dropdown" class="dropdown">
       <h3>Menu</h3>
       <a href="index.html">Home</a>
       <a href="grades.html">Grades</a>
-      <a href="#">Calender</a>
+      <a href="calender.html">Calender</a>
   
       <div class="studytips">
         <span id="nestedLabel" onclick="toggleNested()" class="label">StudyTips▸</span>
@@ -75,95 +95,116 @@
   
     </script>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-      
-        const calendarEl = document.getElementById('calendar');
-      
-        // Hämtar sparade events
-        const storedEvents = JSON.parse(localStorage.getItem('calendarEvents')) || [];
-      
-        const calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-          selectable: true,
-          editable: true,
-      
-          // Laddar events från localStorage
-          events: storedEvents.map(e => ({
-            title: `${e.subject} – ${e.testType}`,
-            start: e.date,
-            allDay: true
-          })),
-      
-          // Lägger till event
-          select: function(info) {
-            const subject = prompt('Subject:');
-            if (!subject) return calendar.unselect();
-      
-            const testType = prompt('Task type exam, submission etc:');
-            if (!testType) return calendar.unselect();
-      
-            const eventData = {
-              subject: subject,
-              testType: testType,
-              date: info.startStr
-            };
-      
-            // Sparar i localStorage
-            storedEvents.push(eventData);
-            localStorage.setItem('calendarEvents', JSON.stringify(storedEvents));
-      
-            calendar.addEvent({
-              title: `${subject} – ${testType}`,
-              start: info.startStr,
-              allDay: info.allDay
-            });
-      
-            calendar.unselect();
-          },
-      
-          //  Ta bort event
-          eventClick: function(info) {
-            if (confirm(`Remove "${info.event.title}"?`)) {
-      
-              info.event.remove();
-      
-              // Ta bort från localStorage
-              const updatedEvents = storedEvents.filter(e => {
-                const title = `${e.subject} – ${e.testType}`;
-                return !(title === info.event.title && e.date === info.event.startStr);
-              });
-      
-              // Uppdatera localStorage
-              localStorage.setItem('calendarEvents', JSON.stringify(updatedEvents));
-      
-              storedEvents.length = 0;
-              storedEvents.push(...updatedEvents);
-            }
-          },
-      
-          eventDrop: function(info) {
-            const updatedEvents = storedEvents.map(e => {
-              const title = `${e.subject} – ${e.testType}`;
-              if (title === info.event.title && e.date === info.oldEvent.startStr) {
-                // Uppdatera datum till nya datumet
-                return { ...e, date: info.event.startStr };
-              }
-              return e;
-            });
-      
-            // Spara tillbaka i localStorage
-            localStorage.setItem('calendarEvents', JSON.stringify(updatedEvents));
-      
-            storedEvents.length = 0;
-            storedEvents.push(...updatedEvents);
-          }
-      
-        });
-      
-        calendar.render();
-      });
-      </script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+const calendarEl = document.getElementById('calendar');
+if (!calendarEl) {
+  console.error('Calendar element not found');
+  return;
+}
+
+const storedEvents = JSON.parse(localStorage.getItem('calendarEvents')) || [];
+
+// Give old events an id if they don't have one yet (migration)
+let changed = false;
+storedEvents.forEach(e => {
+  if (!e.id) {
+    e.id = (crypto?.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random()));
+    changed = true;
+  }
+});
+if (changed) {
+  localStorage.setItem('calendarEvents', JSON.stringify(storedEvents));
+}
+
+const calendar = new FullCalendar.Calendar(calendarEl, {
+  initialView: 'dayGridMonth',
+  selectable: true,
+  editable: true,
+
+  headerToolbar: {
+    left: 'prev,next',
+    center: 'title',
+    right: ''
+  },
+
+  events: storedEvents.map(e => ({
+    id: e.id,
+    title: `${e.subject} – ${e.testType}`,
+    start: e.date,
+    allDay: true
+  })),
+
+  select(info) {
+    const subject = prompt('Subject:');
+    if (!subject) return calendar.unselect();
+
+    const testType = prompt('Task type:');
+    if (!testType) return calendar.unselect();
+
+    const eventId = (crypto?.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random()));
+
+    const eventData = {
+      id: eventId,
+      subject,
+      testType,
+      date: info.startStr
+    };
+
+    storedEvents.push(eventData);
+    localStorage.setItem('calendarEvents', JSON.stringify(storedEvents));
+
+    calendar.addEvent({
+      id: eventId,
+      title: `${subject} – ${testType}`,
+      start: info.startStr,
+      allDay: true
+    });
+
+    calendar.unselect();
+  },
+
+  eventClick(info) {
+    if (!confirm(`Remove "${info.event.title}"?`)) return;
+
+    const eventId = info.event.id;
+
+    info.event.remove();
+
+    const updatedEvents = storedEvents.filter(e => e.id !== eventId);
+    localStorage.setItem('calendarEvents', JSON.stringify(updatedEvents));
+    storedEvents.length = 0;
+    storedEvents.push(...updatedEvents);
+
+    const grades = JSON.parse(localStorage.getItem('grades')) || [];
+    const updatedGrades = grades.filter(g => g.eventId !== eventId);
+    localStorage.setItem('grades', JSON.stringify(updatedGrades));
+    localStorage.setItem('grades', JSON.stringify(grades.filter(g => g.eventId !== eventId)));
+  },
+
+  eventDrop(info) {
+    const eventId = info.event.id;
+
+    const updatedEvents = storedEvents.map(e => {
+      if (e.id === eventId) {
+        return { ...e, date: info.event.startStr };
+      }
+      return e;
+    });
+
+    localStorage.setItem('calendarEvents', JSON.stringify(updatedEvents));
+    storedEvents.length = 0;
+    storedEvents.push(...updatedEvents);
+  }
+
+});
+
+calendar.render();
+});
+
+
+</script>
 
 
       

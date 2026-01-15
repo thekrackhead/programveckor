@@ -3,21 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="stylesheet.css">
+  <link rel="stylesheet" href="Startmenustyle.css">
   <title>grades</title>
 </head>
 <body>
   <section id="sec1">
     <h1>Grades</h1>
   </section>
+
+  <a href="account.html">
+    <img src="account.png" class="accounticon" width="40">
+  </a>
   
+  <div class="back">
     <img src="hamburger.png" class="hamburger" width="40" height="40" onclick="toggleMenu()" alt="burger">
     <img src="x.png" class="x" id="x" width="20" height="20" onclick="closeDropdown()" alt="close">
-    
     <div id="dropdown" class="dropdown">
       <h3>Menu</h3>
       <a href="index.html">Home</a>
-      <a href="#">Grades</a>
+      <a href="grades.html">Grades</a>
       <a href="Calender.html">Calender</a>
   
       <div class="studytips">
@@ -31,10 +35,37 @@
       </div>
   
     </div>
-    
-    <script>
+  </div>
+
+  <div class="grades-page">
+    <div class="grades-card">
+      <div class="grades-header">
+        <div>Subject</div>
+        <div>Grade</div>
+        <div>Goal</div>
+        <div>Estimate</div>
+        <div></div>
+      </div>
   
-  const dropdown = document.getElementById("dropdown");
+      <div id="gradesRows" class="grades-rows"></div>
+  
+      <div class="grades-footer">
+        <div>Merit</div>
+        <div><span id="meritNow" class="merit-pill">0</span></div>
+        <div><span id="meritGoal" class="merit-pill">0</span></div>
+        <div><span id="meritEst" class="merit-pill">0</span></div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="gradesList"></div>
+    
+    <script>  
+
+
+      const dropdown = document.getElementById("dropdown");
       const xBtn = document.getElementById("x");
       const nested = document.getElementById("study-dropdown");
       const nestedLabel = document.getElementById("nestedLabel");
@@ -66,5 +97,74 @@
       }
   
     </script>
+
+<script>
+  const grades = JSON.parse(localStorage.getItem('grades')) || [];
+  const rowsEl = document.getElementById('gradesRows');
+  const events = JSON.parse(localStorage.getItem('calendarEvents')) || [];
+
+  const existingIds = new Set(events.map(e => e.id));
+  const cleanedGrades = grades.filter(g => g.eventId && existingIds.has(g.eventId));
+
+  localStorage.setItem('grades', JSON.stringify(cleanedGrades));
+
+  // Lista på subjects som ska visas
+  const subjects = ["MA", "EN", "SV", "HI"];
+
+  // senaste entry per subject
+  function latestFor(subject) {
+    const filtered = grades.filter(g => g.subject === subject);
+    if (!filtered.length) return null;
+    filtered.sort((a,b) => new Date(b.date) - new Date(a.date));
+    return filtered[0];
+  }
+
+  rowsEl.innerHTML = "";
+
+  subjects.forEach(sub => {
+    const g = latestFor(sub);
+
+    const gradeLetter = g ? g.grade : "—";
+    const percent = g ? Number(g.percent) : 0;
+    const merit = g ? Number(g.merit) : 0;
+
+    // placeholders tills du implementerar mål/estimate
+    const goal = "A";
+    const estimate = gradeLetter === "—" ? "—" : gradeLetter;
+
+    const row = document.createElement('div');
+    row.className = 'grade-row';
+    row.innerHTML = `
+      <div class="subject">${sub}</div>
+
+      <div><span class="badge ${gradeLetter}">${gradeLetter}</span></div>
+
+      <div><span class="badge ${goal}">${goal}</span></div>
+
+      <div style="display:flex; align-items:center; gap:14px;">
+        <span class="badge ${estimate}">${estimate}</span>
+        <div class="progress">
+          <span style="width:${Math.max(6, Math.min(95, percent))}%;"></span>
+        </div>
+      </div>
+    `;
+
+    rowsEl.appendChild(row);
+  });
+
+  // Total merit från senaste per subject
+  const totalMerit = subjects.reduce((acc, s) => acc + (latestFor(s)?.merit || 0), 0);
+
+  document.getElementById('meritNow').textContent = totalMerit.toFixed(1);
+
+  // placeholders
+  document.getElementById('meritGoal').textContent = 300;
+  document.getElementById('meritEst').textContent = (totalMerit + 40).toFixed(1);
+</script>
+
+
+
+    
+
 </body>
 </html>

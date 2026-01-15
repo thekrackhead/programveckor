@@ -4,11 +4,17 @@
     box-sizing:border-box;
 }
 
+#greeting{
+  position: fixed;
+  align-self: center;
+  right: 47.5vw;
+  top: 5vh;
+  font-size: x-large;
+}
 
 body{
-  border-style: inset;
   border-color: #85BCCB;
-  background-color: #D3FEFF;
+  background-color: rgba(123, 170, 182, 1);
   outline-color: #85BCCB;
   border-width: 2.5vw;
   border-color: #85BCCB;
@@ -25,22 +31,123 @@ body{
     position: relative;
     width: 100vw;
     height: 15vh;
-    background-color: rgba(133, 188, 203, 1);
+    background-color: rgba(133, 188, 203, 1);;
     width: 100%;
 }
 
 #sec1 h1 {
+  color: white;
     position: relative;
-    left: 20px;
     top: 30%;
-    width: 50%;
+    left: 4%;
+}
+
+.back1 {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  position: absolute;
+  right: 175px;
+  top: 20px;
+  padding: 25px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.back1:hover {
+  background-color: rgb(220, 220, 220);
+}
+
+.back2 {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px; 
+  position: absolute;
+  right: 125px;
+  top: 20px;
+  padding: 25px;
+  background-color: rgb(95, 142, 197);
+  cursor: pointer;
+}
+
+.lines {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  width: 35px;
+  height: 90%;
+}
+
+.calendaricon {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+}
+
+.accounticon {
+  position: absolute;
+  width: 60px;
+  top: 12px;
+  right: 20px;
+}
+
+/*calendar*/
+
+.fc-scroller {
+  overflow: hidden !important;
+}
+
+.fc-scrollgrid td,
+.fc-scrollgrid th {
+  border-top-right-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+  border-color: black;
+}
+
+.fc-scrollgrid {
+  border-radius: 10px !important;
+  border-color: black !important; 
+}
+
+.calendar-wrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+
+#calendar {
+  margin-top: 50px;
+  margin-bottom: 30px;
+  width: 100%;
+  height: 100%;
 }
 
 .fc-toolbar-title {
     position: absolute;
-    left: 50px;
-    top: 130px;
+    left: 70px;
+    top: 150px;
 }
+
+.fc .fc-toolbar-title {
+  color: #ffffff;
+}
+
+.fc-next-button {
+  top: 15px;
+  left: 1030px;
+}
+
+.fc-prev-button {
+  top: 15px;
+  left: 1030px;
+}
+
+.fc-daygrid-day-frame {
+  background-color: rgb(185, 247, 248);
+  cursor: pointer;
+  border-color: black;
+}
+
+
+
+/*end of calendar*/
 
 .back {
   border-top-right-radius: 10px;
