@@ -88,9 +88,7 @@
         nestedLabel.innerHTML = "StudyTips▸";
       }
   
-    </script>
-
-<script>
+    
 document.addEventListener('DOMContentLoaded', function () {
 
 const calendarEl = document.getElementById('calendar');
@@ -101,7 +99,6 @@ if (!calendarEl) {
 
 const storedEvents = JSON.parse(localStorage.getItem('calendarEvents')) || [];
 
-// Give old events an id if they don't have one yet (migration)
 let changed = false;
 storedEvents.forEach(e => {
   if (!e.id) {

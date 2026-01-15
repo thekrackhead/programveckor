@@ -189,6 +189,7 @@ document.querySelectorAll('#logPopup .seg-btn').forEach(btn => {
   btn.addEventListener('click', () => setScoreMode(btn.dataset.mode));
 });
 
+// --- RENDER EVENTS ---
 storedEvents.forEach(event => {
   const eventDate = new Date(event.date);
   eventDate.setHours(0, 0, 0, 0);
