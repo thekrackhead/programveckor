@@ -19,7 +19,7 @@
     <img src="calendaricon.png" class="calendaricon" width="40">
   </a>
 
-  <a href="https://www.migrationsverket.se/du-vill-ansoka/svenskt-medborgarskap/medborgarskap-for-vuxna/medborgarskap-for-vuxna.html">
+  <a href="#">
     <img src="account.png" class="accounticon" width="40">
   </a>
    
@@ -138,10 +138,8 @@ logPopup.classList.add('hidden');
 
 const popupSubject = document.getElementById("popupSubject");
 
-// ✅ NEW: track which calendar event is being logged
 let currentEventId = null;
 
-// ✅ NEW: ensure all stored events have an id (migration for old data)
 let changed = false;
 storedEvents.forEach(e => {
   if (!e.id) {
@@ -231,7 +229,6 @@ storedEvents.forEach(event => {
     logButton.textContent = 'Log Test';
 
     logButton.addEventListener('click', () => {
-      // ✅ NEW: store the event id that we are logging
       currentEventId = event.id;
 
       popupSubject.textContent = event.subject;
@@ -358,8 +355,6 @@ function closeDropdown() {
 }
 
   </script>
-  
-
   
 </body>
 </html>

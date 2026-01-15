@@ -51,6 +51,7 @@ body {
 #sec1 h1 {
     position: relative;
     color: black;
+    width: 50%;
     top: 30%;
     left: 4%;
     font-size: calc(2vw + 1vh);
@@ -722,6 +723,15 @@ button {
   overflow: hidden;
 }
 
+.grade-row:hover {
+  background: rgb(177, 254, 255);
+}
+
+.grade-row.active .badge,
+.grade-row.active .progress {
+  display: none;
+}
+
 .grades-header, .grades-footer, .grade-row {
   display: grid;
   grid-template-columns: 1.2fr 1fr 1fr 1.2fr 0.3fr;
@@ -793,4 +803,238 @@ button {
   border-radius: 8px;
   font-weight: bold;
   background: white;
+}
+
+#gradePopup {
+  position: fixed;
+  z-index: 100;
+}
+
+.bars {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  left: 0px;
+  right: 38px;
+  bottom: 18px;
+  top: 0px;
+  display: flex;
+  gap: 48px;
+  align-items: flex-end;
+}
+
+.chart {
+  transform: scale(0.9);
+  position: relative;
+  background: rgb(244, 244, 244);
+  border-right: solid 15px;
+  border-left: solid 15px;
+  border-top: solid 10px;
+  border-bottom: solid 10px;
+  border-color: #d9d9d9;
+  border-radius: 10px;
+  height: 220px;
+  width: 670px;
+  overflow: hidden;
+
+}
+
+.bars {
+  padding-left: 40px;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  display: flex;
+  gap: 40px;
+  align-items: flex-end;
+}
+
+.bar { 
+  width: 62px;
+  background: #5b63ff;
+  border-radius: 6px 6px 0 0;
+}
+
+.avg-line {
+  position: absolute;
+  left: 0px;
+  right: 18px;
+  height: 3px;
+  width: 100%;
+  background: #ff4b4b;
+  top: 50%;
+  z-index: 1001;
+}
+
+.graph-side .avg-label {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.graph-side {
+  padding-top: 30px;
+  padding-right: 50px;
+}
+
+.avg-box {
+  padding: 10px 14px;
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.avg-grade {
+  background: #90ff1a;
+  border-radius: 8px;
+  padding: 4px 14px;
+}
+
+.edit-btn {
+  width: 100%;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 10px;
+  background: #5b63ff;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.graph-title {
+  padding-top: 20px;
+  padding-left: 50px;
+  background: rgb(177, 254, 255);
+}
+
+.graph-layout {
+  height: 240px;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 230px !important;
+  gap: 18px;
+  align-items: start;
+  background: rgb(177, 254, 255);
+}
+
+
+
+.chart-wrap{
+  position: relative;     /* <-- referens för skalan */
+  display: inline-block;  /* håller ihop allt */
+}
+
+.chart-wrap .graph-scale{
+  user-select: none;
+  position: absolute;
+  top: 19px;
+  left: 34px;
+  height: calc(100% - 39px);
+  width: 12px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.procenticon {
+  user-select: none;
+  position: absolute;
+  top: 13px;
+  left: 36.5px;
+
+  width: 7.5px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.a {
+  font-size: 11px;
+  font-weight: bold;
+  font-family: "Istok Web", sans-serif;
+  left: 15px;
+  top: 176.5px;
+  position: absolute;
+}
+
+.b {
+  font-size: 11px;
+  font-weight: bold;
+  font-family: "Istok Web", sans-serif;
+  left: 15px;
+  top: 159px;
+  position: absolute;
+}
+
+.c {
+  font-size: 11px;
+  font-weight: bold;
+  font-family: "Istok Web", sans-serif;
+  left: 15px;
+  top: 141px;
+  position: absolute;
+}
+
+.d {
+  font-size: 11px;
+  font-weight: bold;
+  font-family: "Istok Web", sans-serif;
+  left: 15px;
+  top: 123px;
+  position: absolute;
+}
+
+.e {
+  font-size: 11px;
+  font-weight: bold;
+  font-family: "Istok Web", sans-serif;
+  left: 15px;
+  top: 105px;
+  position: absolute;
+}
+
+.f {
+  font-size: 11px;
+  font-weight: bold;
+  font-family: "Istok Web", sans-serif;
+  left: 15px;
+  top: 86px;
+  position: absolute;
+}
+
+.g {
+  font-size: 11px;
+  font-weight: bold;
+  font-family: "Istok Web", sans-serif;
+  left: 15px;
+  top: 69px;
+  position: absolute;
+}
+
+.h {
+  font-size: 11px;
+  font-weight: bold;
+  font-family: "Istok Web", sans-serif;
+  left: 15px;
+  top: 51px;
+  position: absolute;
+}
+
+.i {
+  font-size: 11px;
+  font-weight: bold;
+  font-family: "Istok Web", sans-serif;
+  left: 15px;
+  top: 33px;
+  position: absolute;
+}
+
+.j {
+  font-size: 11px;
+  font-weight: bold;
+  font-family: "Istok Web", sans-serif;
+  left: 9px;
+  top: 15px;
+  position: absolute;
 }

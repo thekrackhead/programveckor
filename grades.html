@@ -7,11 +7,12 @@
   <title>grades</title>
 </head>
 <body>
+
   <section id="sec1">
     <h1>Grades</h1>
   </section>
 
-  <a href="account.html">
+  <a href="#">
     <img src="account.png" class="accounticon" width="40">
   </a>
   
@@ -58,42 +59,47 @@
 
 
   <div id="gradesList"></div>
+
     
-    <script>  
+  </div>
+  
+  
+    
+<script>  
 
 
-      const dropdown = document.getElementById("dropdown");
-      const xBtn = document.getElementById("x");
-      const nested = document.getElementById("study-dropdown");
-      const nestedLabel = document.getElementById("nestedLabel");
+  const dropdown = document.getElementById("dropdown");
+  const xBtn = document.getElementById("x");
+  const nested = document.getElementById("study-dropdown");
+  const nestedLabel = document.getElementById("nestedLabel");
   
-      dropdown.style.display = "none";
-      xBtn.style.display = "none";
-      nested.style.display = "none";
+  dropdown.style.display = "none";
+  xBtn.style.display = "none";
+  nested.style.display = "none";
   
-      function toggleMenu() {
-        const isVisible = dropdown.style.display === "block";
-        dropdown.style.display = isVisible ? "none" : "block";
-        xBtn.style.display = isVisible ? "none" : "block";
+  function toggleMenu() {
+    const isVisible = dropdown.style.display === "block";
+    dropdown.style.display = isVisible ? "none" : "block";
+    xBtn.style.display = isVisible ? "none" : "block";
   
-        if (isVisible) nested.style.display = "none";
-        if (isVisible) nestedLabel.innerHTML = "StudyTips▸";
-      }
+    if (isVisible) nested.style.display = "none";
+    if (isVisible) nestedLabel.innerHTML = "StudyTips▸";
+  }
   
-      function toggleNested() {
-        const isVisible = nested.style.display === "block";
-        nested.style.display = isVisible ? "none" : "block";
-        nestedLabel.innerHTML = isVisible ? "StudyTips▸" : "StudyTips▾";
-      }
+  function toggleNested() {
+    const isVisible = nested.style.display === "block";
+    nested.style.display = isVisible ? "none" : "block";
+    nestedLabel.innerHTML = isVisible ? "StudyTips▸" : "StudyTips▾";
+  }
   
-      function closeDropdown() {
-        dropdown.style.display = "none";
-        xBtn.style.display = "none";
-        nested.style.display = "none";
-        nestedLabel.innerHTML = "StudyTips▸";
-      }
+  function closeDropdown() {
+    dropdown.style.display = "none";
+    xBtn.style.display = "none";
+    nested.style.display = "none";
+    nestedLabel.innerHTML = "StudyTips▸";
+  }
   
-    </script>
+</script>
 
 <script>
   const grades = JSON.parse(localStorage.getItem('grades')) || [];
@@ -102,20 +108,145 @@
 
   const existingIds = new Set(events.map(e => e.id));
   const cleanedGrades = grades.filter(g => g.eventId && existingIds.has(g.eventId));
-
   localStorage.setItem('grades', JSON.stringify(cleanedGrades));
 
-  // Lista på subjects som ska visas
+  const gradesData = cleanedGrades;
+
   const subjects = ["MA", "EN", "SV", "HI"];
 
-  // senaste entry per subject
   function latestFor(subject) {
-    const filtered = grades.filter(g => g.subject === subject);
+    const filtered = gradesData.filter(g => g.subject === subject);
     if (!filtered.length) return null;
     filtered.sort((a,b) => new Date(b.date) - new Date(a.date));
     return filtered[0];
   }
 
+  // --- Helpers ---
+  function percentToGrade(p) {
+    if (p >= 90) return "A";
+    if (p >= 80) return "B";
+    if (p >= 70) return "C";
+    if (p >= 60) return "D";
+    if (p >= 50) return "E";
+    return "F";
+  }
+
+  // --- Graph rendering into a container ---
+  function renderGraphForSubject(subject, container) {
+    const barsEl = container.querySelector('.bars');
+    const avgLineEl = container.querySelector('.avg-line');
+    const avgPercentEl = container.querySelector('#avgPercent');
+    const avgGradeEl = container.querySelector('#avgGrade');
+    const editBtn = container.querySelector('#editScoresBtn');
+
+    const tests = gradesData
+      .filter(g => g.subject === subject)
+      .slice()
+      .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    barsEl.innerHTML = "";
+
+    if (tests.length === 0) {
+      avgPercentEl.textContent = "0%";
+      avgGradeEl.textContent = "F";
+      avgLineEl.style.top = "100%";
+      return;
+    }
+
+    const percents = tests.map(t => Number(t.percent) || 0);
+    const avg = percents.reduce((s,v) => s + v, 0) / percents.length;
+
+    avgPercentEl.textContent = `${Math.round(avg)}%`;
+    avgGradeEl.textContent = percentToGrade(avg);
+
+    avgLineEl.style.top = `${100 - Math.max(1, Math.min(100, avg))}%`;
+
+    percents.forEach(p => {
+      const bar = document.createElement('div');
+      bar.className = 'bar';
+      bar.style.height = `${Math.max(1, Math.min(100, p))}%`;
+      barsEl.appendChild(bar);
+    });
+
+    if (editBtn) {
+      editBtn.onclick = () => alert(`Edit test scores for ${subject}`);
+    }
+  }
+
+  // Creates the details element (your popup content)
+  function createDetailsRow() {
+    const el = document.createElement('div');
+    el.className = 'grade-details';
+
+    el.innerHTML = `
+      <div class="graph-popup">
+        <h2 class="graph-title">Test Graph</h2>
+
+        <div class="graph-layout">
+          <div class="chart-wrap">
+            <p class="a">10</p>
+            <p class="b">20</p>
+            <p class="c">30</p>
+            <p class="d">40</p>
+            <p class="e">50</p>
+            <p class="f">60</p>
+            <p class="g">70</p>
+            <p class="h">80</p>
+            <p class="i">90</p>
+            <p class="j">100</p>
+            <img src="procenticon.png" class="procenticon">
+            <img src="procentlinje.png" class="graph-scale s-ma hidden">
+            <img src="procentlinje.png" class="graph-scale s-en hidden">
+            <img src="procentlinje.png" class="graph-scale s-sv hidden">
+            <img src="procentlinje.png" class="graph-scale s-hi hidden">
+
+            <div class="chart">
+              <div class="avg-line"></div>
+              <div class="bars"></div>
+            </div>
+          </div>
+
+          <div class="graph-side">
+            <p class="avg-label">Percentage Average</p>
+            <div class="avg-box">
+              <span id="avgPercent">0%</span>
+              <span>=</span>
+              <span class="avg-grade" id="avgGrade">F</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    `;
+
+    return el;
+  }
+
+  function toggleDetails(rowEl, subject) {
+  const existing = rowEl.nextElementSibling;
+
+  // stäng
+  if (existing && existing.classList.contains('grade-details')) {
+    existing.remove();
+    rowEl.classList.remove('active'); // ✅ badges tillbaka
+    return;
+  }
+
+  // öppna
+  const details = createDetailsRow();
+  rowEl.insertAdjacentElement('afterend', details);
+
+  rowEl.classList.add('active'); // ✅ badges bort på denna row
+
+  // show correct scale
+  details.querySelectorAll('.graph-scale').forEach(img => img.classList.add('hidden'));
+  const key = subject.toLowerCase();
+  details.querySelector(`.s-${key}`)?.classList.remove('hidden');
+
+  renderGraphForSubject(subject, details);
+}
+
+  // --- Render rows ---
   rowsEl.innerHTML = "";
 
   subjects.forEach(sub => {
@@ -123,9 +254,7 @@
 
     const gradeLetter = g ? g.grade : "—";
     const percent = g ? Number(g.percent) : 0;
-    const merit = g ? Number(g.merit) : 0;
 
-    // placeholders tills du implementerar mål/estimate
     const goal = "A";
     const estimate = gradeLetter === "—" ? "—" : gradeLetter;
 
@@ -146,22 +275,24 @@
       </div>
     `;
 
+    row.style.cursor = 'pointer';
+    row.addEventListener('click', () => toggleDetails(row, sub));
+
     rowsEl.appendChild(row);
   });
 
-  // Total merit från senaste per subject
+  // --- Merit totals ---
   const totalMerit = subjects.reduce((acc, s) => acc + (latestFor(s)?.merit || 0), 0);
-
   document.getElementById('meritNow').textContent = totalMerit.toFixed(1);
 
-  // placeholders
   document.getElementById('meritGoal').textContent = 300;
   document.getElementById('meritEst').textContent = (totalMerit + 40).toFixed(1);
 </script>
 
 
 
-    
+
+
 
 </body>
 </html>
