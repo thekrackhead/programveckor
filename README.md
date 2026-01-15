@@ -21,14 +21,14 @@ vi har gjort ett verktyg för att hjälpa elever både planera och hålla koll p
 
 sättet som vi har gjort det är genom att skapa en kalender som man lätt kan sätta in olika händelser tillsammans med vilket ämne som händelsen är kopplad till, tillsammans med ett sätt att dokumentera hur bra det gick på händelser som redan man har gjort
 
-informationen som man skriver sparas via elevens lokala minne, vilket innebär att 
+informationen som man skriver sparas på elevens dator via lokala minnet på browsern, vilket innebär att informationen kan användas på hemsidan för att visa både vilken dag och vilket ämne som eleven har inlämningsuppgifter i.
 
-Här skriver ni vad ni har gjort, försök att formulera det så att det blir relevant för kategorin ni tänker att ni tävlar i.
-T.ex. om ni har fokuserat på just UI/UX så är det mer relevant än om ni 
+sättet som hemsidan får ett ungefärligt estimat på vad en elev skulle få tack vare prov är genom att hemsidan tar dem högsta värden som man kunde få på händelserna och jämför det värdet med mängden som eleven själv fick och sedan visar hemsidan ungefärliga betyget som farutspås med hjälp av funktioner som räknar ut skillnaden mellan de två olika värdena
 
-Det ska även ingå en tekniskt beskrivning, där ni beskriver en eller flera tekniska lösningar i projektet. Ni skall beskriva funktionen av den tekniska lösningen och hur den används i projektet. Ju tydligare beskrivning desto enklare att bedöma den tekniska lösningen. Beskrivningen skall vara förståelig även för personer som inte kan programmera.
+
 
 ### Externt producerade komponenter
+
 
 Här presenterar ni saker som ni har laddat ner och använt för att bygga ert arbete. Beskriv också i vilken utsträckning de behövs för projektet.
 
