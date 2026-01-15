@@ -121,7 +121,6 @@
     return filtered[0];
   }
 
-  // --- Helpers ---
   function percentToGrade(p) {
     if (p >= 90) return "A";
     if (p >= 80) return "B";
@@ -131,7 +130,6 @@
     return "F";
   }
 
-  // --- Graph rendering into a container ---
   function renderGraphForSubject(subject, container) {
     const barsEl = container.querySelector('.bars');
     const avgLineEl = container.querySelector('.avg-line');
@@ -173,7 +171,6 @@
     }
   }
 
-  // Creates the details element (your popup content)
   function createDetailsRow() {
     const el = document.createElement('div');
     el.className = 'grade-details';
@@ -225,20 +222,17 @@
   function toggleDetails(rowEl, subject) {
   const existing = rowEl.nextElementSibling;
 
-  // stäng
   if (existing && existing.classList.contains('grade-details')) {
     existing.remove();
-    rowEl.classList.remove('active'); // ✅ badges tillbaka
+    rowEl.classList.remove('active');
     return;
   }
 
-  // öppna
   const details = createDetailsRow();
   rowEl.insertAdjacentElement('afterend', details);
 
-  rowEl.classList.add('active'); // ✅ badges bort på denna row
+  rowEl.classList.add('active');
 
-  // show correct scale
   details.querySelectorAll('.graph-scale').forEach(img => img.classList.add('hidden'));
   const key = subject.toLowerCase();
   details.querySelector(`.s-${key}`)?.classList.remove('hidden');
@@ -246,7 +240,6 @@
   renderGraphForSubject(subject, details);
 }
 
-  // --- Render rows ---
   rowsEl.innerHTML = "";
 
   subjects.forEach(sub => {
@@ -281,7 +274,6 @@
     rowsEl.appendChild(row);
   });
 
-  // --- Merit totals ---
   const totalMerit = subjects.reduce((acc, s) => acc + (latestFor(s)?.merit || 0), 0);
   document.getElementById('meritNow').textContent = totalMerit.toFixed(1);
 
