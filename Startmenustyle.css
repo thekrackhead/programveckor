@@ -485,6 +485,10 @@ button {
   cursor: pointer;
 }
 
+.saveGrade:hover {
+  background-color: rgb(96, 255, 96);
+}
+
 .postponeGrade {
   position: absolute;
   right: 600px;
@@ -498,7 +502,9 @@ button {
   cursor: pointer;
 }
 
-
+.postponeGrade:hover {
+  background-color: rgb(255, 103, 92);
+}
 
 
 /*other side*/
@@ -516,6 +522,7 @@ button {
   text-align: center;
   font-size: 15px;
   font-weight: bold;
+  display: inline-block;
 }
 
 .pill4 {
@@ -602,6 +609,7 @@ button {
   padding: 30px;
   background-color: white;
   z-index: 2;
+  cursor: pointer;
 }
 
 .hamburger {
@@ -638,8 +646,8 @@ button {
 .x {
   display: block; 
   position: fixed;
-  bottom: 273px;
-  left: 190px;
+  bottom: 265px;
+  left: 183px;
   width: 15px;
   height: 15px;
   cursor: pointer;
@@ -647,7 +655,7 @@ button {
   z-index: 5;
 }
 
-.dropdown h3 {
+.dropdown h2 {
   color:black;
   padding: 0px;
   margin: 15px 15px;
@@ -686,9 +694,13 @@ button {
   margin-top: 5px;
 }
 
-.study-dropdown p {
+.study-dropdown a {
   padding: 0px 8px 4px;
   margin: 0px;
+}
+
+.study-dropdown:hover a{
+  color: rgb(80, 80, 80);
 }
 
 
