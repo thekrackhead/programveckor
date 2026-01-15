@@ -138,10 +138,8 @@ logPopup.classList.add('hidden');
 
 const popupSubject = document.getElementById("popupSubject");
 
-// ✅ NEW: track which calendar event is being logged
 let currentEventId = null;
 
-// ✅ NEW: ensure all stored events have an id (migration for old data)
 let changed = false;
 storedEvents.forEach(e => {
   if (!e.id) {
@@ -153,7 +151,6 @@ if (changed) {
   localStorage.setItem('calendarEvents', JSON.stringify(storedEvents));
 }
 
-// --- MODE ---
 let scoreMode = 'eca';
 
 function setScoreMode(mode) {
@@ -170,18 +167,16 @@ function setScoreMode(mode) {
     points.classList.remove('hidden');
   }
 
-  // button active state
   document.querySelectorAll('#logPopup .seg-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.mode === mode);
   });
 }
 
-// --- OPEN/CLOSE POPUP ---
 function openLog() {
   logPopup.classList.remove('hidden');
   logPopup.classList.add('show');
   document.body.style.overflow = 'hidden';
-  setScoreMode('eca'); // reset each time you open
+  setScoreMode('eca'); 
 }
 
 function closeLog() {
@@ -190,12 +185,10 @@ function closeLog() {
   document.body.style.overflow = '';
 }
 
-// --- Seg buttons (ONE listener system) ---
 document.querySelectorAll('#logPopup .seg-btn').forEach(btn => {
   btn.addEventListener('click', () => setScoreMode(btn.dataset.mode));
 });
 
-// --- RENDER EVENTS ---
 storedEvents.forEach(event => {
   const eventDate = new Date(event.date);
   eventDate.setHours(0, 0, 0, 0);
@@ -231,7 +224,6 @@ storedEvents.forEach(event => {
     logButton.textContent = 'Log Test';
 
     logButton.addEventListener('click', () => {
-      // ✅ NEW: store the event id that we are logging
       currentEventId = event.id;
 
       popupSubject.textContent = event.subject;

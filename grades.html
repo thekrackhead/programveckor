@@ -105,10 +105,8 @@
 
   localStorage.setItem('grades', JSON.stringify(cleanedGrades));
 
-  // Lista på subjects som ska visas
   const subjects = ["MA", "EN", "SV", "HI"];
 
-  // senaste entry per subject
   function latestFor(subject) {
     const filtered = grades.filter(g => g.subject === subject);
     if (!filtered.length) return null;
@@ -125,7 +123,6 @@
     const percent = g ? Number(g.percent) : 0;
     const merit = g ? Number(g.merit) : 0;
 
-    // placeholders tills du implementerar mål/estimate
     const goal = "A";
     const estimate = gradeLetter === "—" ? "—" : gradeLetter;
 
@@ -149,12 +146,10 @@
     rowsEl.appendChild(row);
   });
 
-  // Total merit från senaste per subject
   const totalMerit = subjects.reduce((acc, s) => acc + (latestFor(s)?.merit || 0), 0);
 
   document.getElementById('meritNow').textContent = totalMerit.toFixed(1);
 
-  // placeholders
   document.getElementById('meritGoal').textContent = 300;
   document.getElementById('meritEst').textContent = (totalMerit + 40).toFixed(1);
 </script>
